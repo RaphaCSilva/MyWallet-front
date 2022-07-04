@@ -47,8 +47,8 @@ export default function Cadastro() {
       <Entradas>
           <input placeholder="  nome" value={nome} onChange={e => setNome(e.target.value)} disabled = {load}/>
           <input placeholder="  email" value={email} onChange={e => setEmail(e.target.value)} disabled = {load}/>
-          <input placeholder="  senha" value={senha} onChange={e => setSenha(e.target.value)} disabled = {load}/>
-          <input placeholder="  confirme a senha" value={confirma} onChange={e => setConfirma(e.target.value)} disabled = {load}/>
+          <input  type="password" placeholder="  senha" value={senha} onChange={e => setSenha(e.target.value)} disabled = {load}/>
+          <input  type="password" placeholder="  confirme a senha" value={confirma} onChange={e => setConfirma(e.target.value)} disabled = {load}/>
       </Entradas>
       <Cadastrar>
       <Botao onClick={montarobj} disabled = {load}>

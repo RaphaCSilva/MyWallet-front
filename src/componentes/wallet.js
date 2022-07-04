@@ -20,9 +20,20 @@ export default function Wallet() {
         const promise = axios.get(axiosURL, config );
         promise.then((res) => {
             setAtividades(res.data);
-        }); 
+        });
+        
     }, []);
-
+    
+    function somar(){
+        return atividades.reduce((anterior, atual) => {
+            if(atual.cor === "verde"){
+                return anterior + atual.valor;
+            }
+            return anterior - atual.valor;
+        }, 0);
+    }
+    
+    const soma = somar();
     return (
       <>
         <Topo>
@@ -38,11 +49,13 @@ export default function Wallet() {
                 {(atividades.length !== 0)? atividades.map((atividade, index) => 
                 <li key = {index}>
                 <p >
-                   <span> {atividade.data} </span><span> {atividade.descricao} </span> <span className = {atividade.cor}> {atividade.valor} </span>
+                   <span> {atividade.data} </span>
+                   <span> {atividade.descricao} </span> 
+                   <span className = {atividade.cor}> {atividade.valor} </span>
                 </p>
                 </li>): <h2> Não há registros de entrada ou saída </h2>}
             </ul>
-            {(atividades.length !== 0)? <Soma> <h3> SALDO </h3> <span>23213</span> </Soma> : <></>}
+            {(atividades.length !== 0)? <Soma> <h3> SALDO </h3> <span className={(soma<0)? "vermelho": "verde"}>{soma}</span> </Soma> : <></>}
         </Extrato>
         <Botoes>
             <Link to = '/entrada'>
@@ -172,7 +185,7 @@ export default function Wallet() {
     border-radius: 5px;
     border: none;
     display: flex;
-  
+
     ion-icon{
         color: #FFFFFF;
         font-size: 30px;
@@ -226,7 +239,7 @@ export default function Wallet() {
    display: flex;
    height: 30px;
    width: 100%;
-   justify content: space-between;
+   justify-content: space-between;
    background-color: #FFFFFF;
    
    h3 {

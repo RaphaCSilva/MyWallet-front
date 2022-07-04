@@ -9,9 +9,10 @@ import Saida from "./componentes/saida";
 
 export default function App() {
   const [user, setUser] = useState({});
+  const [soma, setSoma] = useState(0);
 
   return (
-    <UserContext.Provider value = {{user, setUser}}>
+    <UserContext.Provider value = {{user, setUser, soma, setSoma}}>
       <BrowserRouter>
         <Routes>
           <Route path="" element={<Login/>}/>

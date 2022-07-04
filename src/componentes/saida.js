@@ -8,7 +8,7 @@ import UserContext from "./context";
 
 export default function Saida() {
   
-    const [valor, setValor] = React.useState(0);
+    const [valor, setValor] = React.useState();
     const [descricao, setDescricao] = React.useState("");
     const [load, setLoad] = React.useState(false);
   
@@ -23,12 +23,13 @@ export default function Saida() {
   
     function montarobj(){
       setLoad(true);
+      let valorarrumado = parseFloat(valor).toFixed(2);
       const obj = {
-        valor, 
+        valor: valorarrumado, 
         descricao,
-        cor: ".vermelho"
+        cor: "vermelho"
       }
-      
+
       const response = axios.post(axiosURL, obj, config);
   
       response.catch(err => {

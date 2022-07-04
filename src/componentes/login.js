@@ -14,25 +14,27 @@ export default function Login() {
 
   const {setUser} = useContext(UserContext);
   
-  const URL = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login';
+  const URL = 'http://localhost:5000/login';
   let navigate = useNavigate();
   
   function montarobj(){
     setLoad(true);
     const obj = {
-      email: email,
-      password: senha
+      email,
+      senha
     }
+
     const response = axios.post(URL, obj);
+
     response.catch(err => {
         alert("Algo deu errado, por favor verifique os dados e tente novamente");
         setLoad(false);
     });
+
     response.then( result => {
+      const {token, nome} = result.data;
       if(result.status === 200){
-        setUser({
-          token: result.data.token,
-        });
+        setUser({token, nome});
         navigate("/wallet");
       }
     });

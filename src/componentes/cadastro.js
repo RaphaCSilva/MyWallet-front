@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import axios from 'axios';
 import styled from 'styled-components';
 import { useNavigate, Link } from "react-router-dom";
@@ -7,27 +7,29 @@ import Loader from "./loader";
 
 export default function Cadastro() {
   
-  const [nome, setNome] = React.useState("");
-  const [email, setEmail] = React.useState("");
-  const [senha, setSenha] = React.useState("");
-  const [confirma, setConfirma] = React.useState("");
-  const [load, setLoad] = React.useState(false);
+  const [nome, setNome] = useState("");
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+  const [confirma, setConfirma] = useState("");
+  const [load, setLoad] = useState(false);
   
-  let obj = {};
   let navigate = useNavigate();
 
   function montarobj(){
     setLoad(true);
-    obj = {
-      email: email,
-      name: nome,
-      password: senha
+    const obj = {
+      nome,
+      email,
+      senha,
+      confirma
     }
-    const URL = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up';
+    const URL = 'http://localhost:5000/cadastro';
     if(confirma === senha){
       const response = axios.post(URL, obj);
+      console.log(obj);
       response.catch(err => {
         alert("Algo deu errado, por favor verifique os dados e tente novamente");
+        console.log(err);
         setLoad(false);
       });
       response.then( result => {

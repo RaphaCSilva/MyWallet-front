@@ -1,20 +1,33 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
+import UserContext from "./context";
 import axios from 'axios';
 import styled from 'styled-components';
-import { useNavigate, Link } from "react-router-dom";
-import Loader from "./loader";
+import {Link} from "react-router-dom";
 
 
 export default function Wallet() {
-  
-  const user = "Fulano";
+    
+    const {user} = useContext(UserContext);
+    const [atividades, setAtividades] = useState([]);
 
+    const axiosURL = "http://localhost:5000/atividades";
+    const config = {
+        headers: {
+            "Authorization": `Bearer ${user.token}`
+        }
+    }
+    useEffect(() => {
+        const promise = axios.get(axiosURL, config );
+        promise.then((res) => {
+            setAtividades(res.data);
+        }); 
+    }, []);
 
     return (
       <>
         <Topo>
             <h1>
-                Olá, {user}
+                Olá, {user.nome}
             </h1>
             <Link to= '/'>
                 <h1>
@@ -24,40 +37,27 @@ export default function Wallet() {
         </Topo>
         <Extrato>
             <ul>
-                <li>
-                    <p>
-                        <span> 30/11 </span><span> Almoço </span> <span className = 'vermelho'> 59.00 </span>
-                    </p>
-                </li>
-                <li>
-                    <p>
-                        <span> 30/11 </span><span> Almoço </span> <span className = 'verde'> 59.00 </span>
-                    </p>
-                </li>
-                <li>
-                    <p>
-                        <span> 30/11 </span><span> Almoço </span> <span className = 'verde'> 59.00 </span>
-                    </p>
-                </li>
-                <li>
-                    <p>
-                        <span> 30/11 </span><span> Almoço </span> <span className = 'verde'> 59.00 </span>
-                    </p>
-                </li>
-              
+                {(atividades.length !== 0)? atividades.map((atividade, index) => 
+                <p key = {index}>
+                   <span> {atividade.data} </span><span> {atividade.descricao} </span> <span className = {atividade.cor}> {atividade.valor} </span>
+                </p>): <h2> Não há registros de entrada ou saída </h2>}
             </ul>
         </Extrato>
         <Botoes>
-            <NovaEntrada>
-                <p>
-                    Nova entrada 
-                </p>
-            </NovaEntrada>
-            <NovaSaida>
-                <p>
-                    Nova saída
-                </p>
-            </NovaSaida>
+            <Link to = '/entrada'>
+                <NovaEntrada>
+                    <p>
+                        Nova entrada 
+                    </p>
+                </NovaEntrada>
+            </Link>
+            <Link to = '/saida'>
+                <NovaSaida>
+                    <p>
+                        Nova saída
+                    </p>
+                </NovaSaida>
+            </Link>
         </Botoes>
       </>
     );
@@ -88,6 +88,21 @@ export default function Wallet() {
    border-radius: 5px;
    margin: auto;
    margin-top: 22px;
+   overflow-y: scroll;
+
+   h2 { 
+    width: 180px;
+    height: 46px;
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 23px;
+    text-align: center;
+    color: #868686;
+    margin: auto;
+    margin-top: 180px;
+   }
    
    ul{
         padding-top: 23px;

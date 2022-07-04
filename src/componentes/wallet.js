@@ -27,9 +27,9 @@ export default function Wallet() {
     function somar(){
         return atividades.reduce((anterior, atual) => {
             if(atual.cor === "verde"){
-                return anterior + atual.valor;
+                return parseInt(anterior) + parseInt(atual.valor);
             }
-            return anterior - atual.valor;
+            return parseInt(anterior) - parseInt(atual.valor);
         }, 0);
     }
     

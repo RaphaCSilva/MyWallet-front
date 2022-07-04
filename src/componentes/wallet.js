@@ -30,22 +30,24 @@ export default function Wallet() {
                 Olá, {user.nome}
             </h1>
             <Link to= '/'>
-                <h1>
-                    A
-                </h1>
+                <ion-icon name="exit-outline"></ion-icon>
             </Link> 
         </Topo>
         <Extrato>
             <ul>
                 {(atividades.length !== 0)? atividades.map((atividade, index) => 
-                <p key = {index}>
+                <li key = {index}>
+                <p >
                    <span> {atividade.data} </span><span> {atividade.descricao} </span> <span className = {atividade.cor}> {atividade.valor} </span>
-                </p>): <h2> Não há registros de entrada ou saída </h2>}
+                </p>
+                </li>): <h2> Não há registros de entrada ou saída </h2>}
             </ul>
+            {(atividades.length !== 0)? <Soma> <h3> SALDO </h3> <span>23213</span> </Soma> : <></>}
         </Extrato>
         <Botoes>
             <Link to = '/entrada'>
                 <NovaEntrada>
+                    <ion-icon name="add-circle-outline"></ion-icon>
                     <p>
                         Nova entrada 
                     </p>
@@ -53,6 +55,7 @@ export default function Wallet() {
             </Link>
             <Link to = '/saida'>
                 <NovaSaida>
+                    <ion-icon name="remove-circle-outline"></ion-icon>
                     <p>
                         Nova saída
                     </p>
@@ -77,6 +80,10 @@ export default function Wallet() {
     font-size: 26px;
     line-height: 31px;
     color: #FFFFFF;
+   }
+   ion-icon{
+        color: #FFFFFF;
+        font-size: 32px;
    }
  `;
  const Extrato = styled.div`
@@ -140,10 +147,10 @@ export default function Wallet() {
                     text-align: right;
                     margin-right: 11px;
                 }
-                .verde{
+                span .verde{
                     color: #03AC00;
                 }
-                .vermelho{
+                span .vermelho{
                     color: #C70000;
                 }
             }
@@ -165,7 +172,13 @@ export default function Wallet() {
     border-radius: 5px;
     border: none;
     display: flex;
-
+  
+    ion-icon{
+        color: #FFFFFF;
+        font-size: 30px;
+        height: 30px;
+        margin-top:5px
+    }
     p{
         width: 64px;
         height: 40px;
@@ -187,12 +200,17 @@ export default function Wallet() {
     background: #A328D6;
     border-radius: 5px;
     border: none;
-
+    
+    ion-icon{
+        color: #FFFFFF;
+        font-size: 30px;
+        margin-right: 200px;
+    }
     p{
         width: 44px;
         height: 40px;
         margin-left: 6px;
-        margin-top: 61px;
+        margin-top: 35px;
 
         text-align: left;
         font-family: 'Raleway';
@@ -202,4 +220,31 @@ export default function Wallet() {
         line-height: 20px;
         color: #FFFFFF;
     }
+ `;
+ 
+ const Soma = styled.div`
+   display: flex;
+   height: 30px;
+   width: 100%;
+   justify content: space-between;
+   background-color: #FFFFFF;
+   
+   h3 {
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 20px;
+    color: #000000;
+    margin-left: 15px;
+   }
+   span{ 
+    font-family: 'Raleway';  
+    font-style: normal;
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 20px;
+    text-align: right;
+    margin-right: 15px;
+   }
  `;

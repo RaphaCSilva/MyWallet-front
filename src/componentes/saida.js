@@ -1,46 +1,46 @@
 import React, { useContext } from "react";
 import axios from 'axios';
 import styled from 'styled-components';
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Loader from "./loader";
 import UserContext from "./context";
 
 
 export default function Saida() {
   
-  const [valor, setValor] = React.useState(0);
-  const [descricao, setDescricao] = React.useState("");
-  const [load, setLoad] = React.useState(false);
-
-  const {user} = useContext(UserContext);
+    const [valor, setValor] = React.useState(0);
+    const [descricao, setDescricao] = React.useState("");
+    const [load, setLoad] = React.useState(false);
   
-  const axiosURL = 'http://localhost:5000/atividades';
-  let navigate = useNavigate();
-  
-  const config = {
-    headers: { Authorization: `Bearer ${user.token}` },
-  };
-
-  function montarobj(){
-    setLoad(true);
-    const obj = {
-      valor, 
-      descricao,
-      cor: "verde"
-    }
+    const {user} = useContext(UserContext);
     
-    const response = axios.post(axiosURL, obj, config);
-
-    response.catch(err => {
-        alert("Algo deu errado, por favor verifique os dados e tente novamente");
-        setLoad(false);
-    });
-
-    response.then( result => {
-        navigate("/wallet");
-    });
-  }  
+    const axiosURL = 'http://localhost:5000/atividades';
+    let navigate = useNavigate();
+    
+    const config = {
+      headers: { Authorization: `Bearer ${user.token}` },
+    };
   
+    function montarobj(){
+      setLoad(true);
+      const obj = {
+        valor, 
+        descricao,
+        cor: ".vermelho"
+      }
+      
+      const response = axios.post(axiosURL, obj, config);
+  
+      response.catch(err => {
+          alert("Algo deu errado, por favor verifique os dados e tente novamente");
+          setLoad(false);
+      });
+  
+      response.then( result => {
+          navigate("/wallet");
+      });
+    }  
+    
     return (
         <>
       <Topo>

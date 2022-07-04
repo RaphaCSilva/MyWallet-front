@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import axios from 'axios';
 import styled from 'styled-components';
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import Loader from "./loader";
 import UserContext from "./context";
 
@@ -26,7 +26,7 @@ export default function Entrada() {
     const obj = {
       valor, 
       descricao,
-      cor: "verde"
+      cor: ".verde"
     }
     
     const response = axios.post(axiosURL, obj, config);
